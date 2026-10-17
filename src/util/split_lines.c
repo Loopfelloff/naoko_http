@@ -31,19 +31,29 @@ int split_into_lines(char* buf , char*** out , size_t* out_len){
 	    lines = temp;
 
 	}
-	    
-	lines[n] = malloc(length_of_sentence);
+
+
+	if(end)    
+	    lines[n] = malloc(length_of_sentence);
+	else 
+	    lines[n] = malloc(length_of_sentence+1);
 	
 
 	if(!lines[n]) goto fail;	
 	
-	memcpy(lines[n] , start , length_of_sentence-1);
-	
-	lines[n][length_of_sentence-1] = '\0';
+	if(end)
+	    { 
+	    memcpy(lines[n] , start , length_of_sentence-1);
+	    lines[n][length_of_sentence-1] = '\0';
+	    start += length_of_sentence;
+}
+	else {
+	    memcpy(lines[n] , start , length_of_sentence);
+	    lines[n][length_of_sentence] = '\0';
+	    start += (length_of_sentence+1);
+	}
 	
 	n++;
-
-	start += length_of_sentence;
 
 	if(*start == '\n') start++;
 	
