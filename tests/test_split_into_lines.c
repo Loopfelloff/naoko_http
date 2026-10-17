@@ -35,8 +35,7 @@ int main(){
   "X-Custom-Header-4: four",
   "",
     };
-    
-    if(out != 4){
+    if(out != 19){
 	fprintf(stderr, "the size of the test case isn't passed \n");
 	return 1;
     }

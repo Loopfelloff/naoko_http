@@ -1,4 +1,5 @@
 #include<string.h>
+#include<stdio.h>
 #include<stdlib.h>
 #include "util/split_lines.h"
 
@@ -30,14 +31,15 @@ int split_into_lines(char* buf , char*** out , size_t* out_len){
 	    lines = temp;
 
 	}
-    
+	    
 	lines[n] = malloc(length_of_sentence);
+	
 
 	if(!lines[n]) goto fail;	
 	
 	memcpy(lines[n] , start , length_of_sentence-1);
 	
-	lines[n][length_of_sentence] = '\0';
+	lines[n][length_of_sentence-1] = '\0';
 	
 	n++;
 
@@ -54,7 +56,7 @@ int split_into_lines(char* buf , char*** out , size_t* out_len){
     return 0;
 
     fail:
-	for(size_t i =0; i<n; i++) free(lines[n]);
+	for(size_t i =0; i<n; i++) free(lines[i]);
 	free(lines);
 	return -1;
 
