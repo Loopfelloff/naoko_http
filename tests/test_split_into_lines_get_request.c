@@ -15,7 +15,7 @@ int main(){
     }
 
     char *to_compare_with_buf[] = {
-"GET /index.html HTTP/1.1",
+  "GET /index.html HTTP/1.1",
   "Host: localhost:3000",
   "Connection: close",
   "User-Agent: Mozilla/5.0 (X11; Linux x86_64)",
