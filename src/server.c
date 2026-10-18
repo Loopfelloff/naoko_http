@@ -95,6 +95,7 @@ void start_server(char* ip_addr , int port , int backlog , size_t buf_len){
 	    if(split_into_lines(receive_buf , &request_into_lines , &length_of_request_array ) == -1) 			
 	    {
 		fprintf(stderr , "split : memory allocation error while splittling \n");
+		free(receive_buf);
 		exit(-1);
 	    }
 

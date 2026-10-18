@@ -8,6 +8,7 @@
 
 int main(){
     printf("We are running the app!!! \n");
+
     start_server(ip_addr , port , 10 , (size_t)buf_len);
     return 0;
 }
