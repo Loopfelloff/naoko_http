@@ -21,6 +21,8 @@ int receiveall(int socket_fd , char** to_return_buf , size_t buf_len){
     } */
 	
     n = recv(socket_fd , buf , buf_len-1  , 0);
+
+    if(n == -1)	return -1;
 	
     buf[n] = '\0';
     

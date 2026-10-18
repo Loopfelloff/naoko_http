@@ -16,6 +16,7 @@
 #include "http/sendall.h"
 #include "util/split_lines.h"
 #include "http/receiveall.h"
+#include "util/split_lines.h"
 
 void sigchld_handler(int s) // This is what the structure of the function should look like always btw.
 {
@@ -80,19 +81,29 @@ void start_server(char* ip_addr , int port , int backlog , size_t buf_len){
 
 	if (!fork()) { // this is the child process
 	    close(sockfd); // child doesn’t need the listener
-	    char *receive_buf;
+	    char *receive_buf = malloc(buf_len);
 	    int receive_stat = receiveall(new_fd , &receive_buf , buf_len);
 	    if(receive_stat == -1){
 		fprintf(stderr, "receive: error occured while receiving \n");
 		close(new_fd);
+		free(receive_buf);
 		exit(-1);		
 	    }
-	    printf("Recieved : \n %s \n" , receive_buf);
+	    char **request_into_lines; 
+	    size_t length_of_request_array;
+
+	    if(split_into_lines(receive_buf , &request_into_lines , &length_of_request_array ) == -1) 			
+	    {
+		fprintf(stderr , "split : memory allocation error while splittling \n");
+		exit(-1);
+	    }
+
 	    char* to_send_buf = "Hello, world!\n";
 	    int length_of_sending = strlen(to_send_buf);
 	    if (sendall(new_fd, to_send_buf, &length_of_sending) == -1)
 		perror("send");
 	    close(new_fd);
+	    free(receive_buf);
 	    exit(0);
 	}
 	close(new_fd); // parent doesn’t need this
