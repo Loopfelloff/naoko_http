@@ -10,15 +10,18 @@
 #include <sys/wait.h>
 #include <signal.h>
 
+
 //custome header file includes are mentioned in here.
 #include "server.h"
 #include "http/sendall.h"
+#include "util/split_lines.h"
+#include "http/receiveall.h"
 
 void sigchld_handler(int s) // This is what the structure of the function should look like always btw.
 {
     while(wait(NULL) > 0);
 }
-void start_server(char* ip_addr , int port , int backlog){
+void start_server(char* ip_addr , int port , int backlog , size_t buf_len){
     int sockfd, new_fd; // listen on sock_fd, new connection on new_fd
     struct sockaddr_in my_addr; // my address information
     struct sockaddr_in their_addr; // connector’s address information
@@ -77,6 +80,14 @@ void start_server(char* ip_addr , int port , int backlog){
 
 	if (!fork()) { // this is the child process
 	    close(sockfd); // child doesn’t need the listener
+	    char *receive_buf;
+	    int receive_stat = receiveall(new_fd , &receive_buf , buf_len);
+	    if(receive_stat == -1){
+		fprintf(stderr, "receive: error occured while receiving \n");
+		close(new_fd);
+		exit(-1);		
+	    }
+	    printf("Recieved : \n %s \n" , receive_buf);
 	    char* to_send_buf = "Hello, world!\n";
 	    int length_of_sending = strlen(to_send_buf);
 	    if (sendall(new_fd, to_send_buf, &length_of_sending) == -1)

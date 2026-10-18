@@ -4,9 +4,10 @@
 #define ip_addr "127.0.0.1"
 #define port 3490
 #define backlog 10
+#define buf_len 1024
 
 int main(){
     printf("We are running the app!!! \n");
-    start_server(ip_addr , port , 10);
+    start_server(ip_addr , port , 10 , (size_t)buf_len);
     return 0;
 }
