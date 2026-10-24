@@ -17,6 +17,7 @@
 #include "util/split_lines.h"
 #include "http/receiveall.h"
 #include "util/split_lines.h"
+#include "util/request_first_line.h"
 
 void sigchld_handler(int s) // This is what the structure of the function should look like always btw.
 {
@@ -99,12 +100,28 @@ void start_server(char* ip_addr , int port , int backlog , size_t buf_len){
 		exit(-1);
 	    }
 
+	    http_request_t *req = malloc(sizeof(http_request_t));
+
+	    char *request_first = request_into_lines[0];
+
+	    if(parse_request_line(request_first , req) == -1)
+	    {
+		fprintf(stderr , "Failed to parse \n");
+		free(req);
+		free(receive_buf);
+		exit(-1);
+}
+	    printf("%s \n" , req->method);	    
+	    printf("%s \n" , req->path);	    
+	    printf("%s \n" , req->version);	    
+
 	    char* to_send_buf = "Hello, world!\n";
 	    int length_of_sending = strlen(to_send_buf);
 	    if (sendall(new_fd, to_send_buf, &length_of_sending) == -1)
 		perror("send");
 	    close(new_fd);
 	    free(receive_buf);
+	    free(req);
 	    exit(0);
 	}
 	close(new_fd); // parent doesn’t need this
