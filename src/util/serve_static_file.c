@@ -2,8 +2,17 @@
 #include<stdlib.h>
 #include<string.h>
 #include "util/serve_static_file.h"
+#include "util/request_first_line.h"
 
-int serve_static_file(char* http_request_method , char* resource_name , char** file_read){
+int serve_static_file(char* http_request_method , char* resource_name , char** file_read , http_request_t * req){
+
+    char mime_type[64];
+
+    char file_name[256];
+
+    sscanf(resource_name, "%255[^.].%s",file_name, mime_type);
+    
+    strcpy(req->content_type , mime_type);
     
     if(strcmp(http_request_method , "GET") != 0) return 0;
 
@@ -19,8 +28,7 @@ int serve_static_file(char* http_request_method , char* resource_name , char** f
     free(full_name);
 
     if(static_file == NULL){
-	printf("The file couldn't be accessed \n");
-	return 0; // the reason why this is 0 is because we want the next controller to handle the request properly if the said file doesn't exist.
+	return -1; // the reason why this is actually supposed to be  0 is because we want the next controller to handle the request properly if the said file doesn't exist. However for now i am just writing it so that it returns -1 and error is handeled separately.
     }
     
     size_t bytes_read;
