@@ -18,12 +18,13 @@
 #include "http/receiveall.h"
 #include "util/split_lines.h"
 #include "util/request_first_line.h"
+#include "util/verify_http_version.h"
 
 void sigchld_handler(int s) // This is what the structure of the function should look like always btw.
 {
     while(wait(NULL) > 0);
 }
-void start_server(char* ip_addr , int port , int backlog , size_t buf_len){
+void start_server(char* ip_addr , int port , int backlog , size_t buf_len , char** verifiable_list){
     int sockfd, new_fd; // listen on sock_fd, new connection on new_fd
     struct sockaddr_in my_addr; // my address information
     struct sockaddr_in their_addr; // connector’s address information
@@ -111,10 +112,13 @@ void start_server(char* ip_addr , int port , int backlog , size_t buf_len){
 		free(receive_buf);
 		exit(-1);
 }
-	    printf("%s \n" , req->method);	    
-	    printf("%s \n" , req->path);	    
-	    printf("%s \n" , req->version);	    
 
+	    if(verify_http_version(req->version , verifiable_list)){
+		fprintf(stderr,  "HTTP version not supported \n");
+		free(req);
+		free(receive_buf);
+		exit(-1);
+}
 	    char* to_send_buf = "Hello, world!\n";
 	    int length_of_sending = strlen(to_send_buf);
 	    if (sendall(new_fd, to_send_buf, &length_of_sending) == -1)
