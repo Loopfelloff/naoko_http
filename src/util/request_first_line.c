@@ -1,4 +1,5 @@
 #include<stdlib.h>
+#include<stdio.h>
 #include<string.h>
 #include "util/request_first_line.h"
 
