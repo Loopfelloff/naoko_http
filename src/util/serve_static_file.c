@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
 #include "util/serve_static_file.h"
 
@@ -12,10 +13,13 @@ int serve_static_file(char* http_request_method , char* resource_name , char** f
 
     snprintf(full_name, full_name_path_length , "./assets%s", resource_name);
 
+
     FILE *static_file = fopen(full_name,  "rb");
 
-    if(static_file != NULL){
-	free(full_name);
+    free(full_name);
+
+    if(static_file == NULL){
+	printf("The file couldn't be accessed \n");
 	return 0; // the reason why this is 0 is because we want the next controller to handle the request properly if the said file doesn't exist.
     }
     
@@ -41,7 +45,7 @@ int serve_static_file(char* http_request_method , char* resource_name , char** f
 	    cap *= 2;
 	    char *temp_read = realloc(final_full_buffer , cap);
 	    if(temp_read == NULL){
-		fclose(full_name);		
+		fclose(static_file);		
 		free(final_full_buffer);
 		return -1;
 	    }
@@ -55,9 +59,9 @@ int serve_static_file(char* http_request_method , char* resource_name , char** f
 	strcat(final_full_buffer , file_read_buffer);
 	
     }
-    *file_read = final_full_buffer;
+    *file_read = final_full_buffer; // Don't forget to clear this from outside.
 
-    fclose(full_close);
+    fclose(static_file);
     
-    return -1;
+    return 0;
 }
