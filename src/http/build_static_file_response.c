@@ -9,9 +9,9 @@
 
 const char *content_type(char* mime_type){
 
-    if(strcpy(mime_type , "html")) return "text/html";
-    else if(strcpy(mime_type , "css")) return "text/css";
-    else if(strcpy(mime_type , "js")) return "text/javascript";
+    if(strcmp(mime_type , "html") == 0) return "text/html";
+    else if(strcmp(mime_type , "css") == 0) return "text/css";
+    else if(strcmp(mime_type , "js") == 0) return "text/javascript";
     else return "text/html"; // don't ask my why this is the default idk i just liked it this way.
 }
 
