@@ -5,6 +5,7 @@
 // Here i include my custom header files
 
 #include "http/build_static_file_response.h"
+#include "util/request_first_line.h"
 
 const char *content_type(char* mime_type){
 
@@ -27,25 +28,25 @@ const char *status_text(int code) {
 // *out_len receives the total size in bytes.
 char *build_response(int status, const char *mime,
                      const char *body, size_t body_len,
-                     size_t *out_len , http_request_t* req)
+                     size_t *out_len )
 {
+
     const char *fmt =
         "HTTP/1.1 %d %s\r\n"
         "Content-Type: %s; charset=utf-8\r\n"
         "Content-Length: %zu\r\n"
         "\r\n";
 
-    // Pass 1: measure the header (NULL, 0 means "just tell me the length")
+//First i am taking just the length
     int header_len = snprintf(NULL, 0, fmt, status, status_text(status), content_type(mime), body_len);
     if (header_len < 0) return NULL;
 
     char *buf = malloc((size_t)header_len + body_len + 1);
     if (!buf) return NULL;
 
-    // Pass 2: write the header
-    snprintf(buf, (size_t)header_len + 1, fmt, status, status_text(status), mime, body_len);
-
-    // Append the body right after the header
+    // actually copying the header to the buffer 
+    snprintf(buf, (size_t)header_len + 1, fmt, status, status_text(status), content_type(mime), body_len);
+    // appending the body right after the header
     memcpy(buf + header_len, body, body_len);
     buf[header_len + body_len] = '\0';  // only for convenience when printing text
 
