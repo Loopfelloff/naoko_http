@@ -1,0 +1,82 @@
+/* layout.css: wrappers, hero, manga-panel grid, buttons */
+.wrap { width: min(1080px, 100% - 2rem); margin-inline: auto; }
+.section { padding-block: clamp(2.5rem, 6vw, 5rem); }
+
+/* Hero: a manga title page with speed lines */
+.hero {
+  position: relative; overflow: hidden; border-bottom: var(--border);
+  background:
+    repeating-conic-gradient(from 0deg at 72% 48%, rgba(255,244,224,.09) 0 1.6deg, transparent 1.6deg 6deg),
+    linear-gradient(160deg, var(--night-2), var(--night) 60%);
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 2rem;
+  padding-block: clamp(2.5rem, 7vw, 5.5rem);
+}
+.title-card h1 {
+  color: var(--sakura);
+  text-shadow: 4px 4px 0 var(--ink), 7px 7px 0 var(--cyan);
+  margin-bottom: .35em; overflow-wrap: anywhere;
+}
+.lede { font-size: 1.2rem; color: var(--moon); }
+.badges { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.25rem 0 1.75rem; padding: 0; list-style: none; }
+.badges li {
+  background: var(--ink); border: 2px solid var(--cyan); color: var(--cyan);
+  padding: .2rem .85rem; border-radius: 999px; font-weight: 700; font-size: .95rem;
+}
+
+.mascot-stage { position: relative; display: grid; place-items: center; padding-top: 4.5rem; }
+.mascot { width: min(300px, 70%); filter: drop-shadow(6px 8px 0 var(--ink)); }
+.bubble {
+  position: absolute; top: 0; right: 0; max-width: 17rem;
+  background: var(--moon); color: var(--ink); font-weight: 700; line-height: 1.4;
+  padding: .9rem 1.1rem; border: 3px solid var(--ink); border-radius: 22px;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.bubble::after {
+  content: ""; position: absolute; left: 2.2rem; bottom: -17px;
+  border: 10px solid transparent; border-top: 18px solid var(--ink); border-bottom: 0;
+}
+
+/* Buttons */
+.btn-row { display: flex; flex-wrap: wrap; gap: .9rem; }
+.btn {
+  display: inline-block; text-decoration: none; font-weight: 700;
+  padding: .7rem 1.5rem; border: 3px solid var(--ink); border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--ink); transition: transform .12s, box-shadow .12s;
+}
+.btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.btn-primary { background: var(--sakura); color: var(--ink); }
+.btn-primary:hover { background: var(--lantern); color: var(--ink); }
+.btn-secondary { background: var(--cyan); color: var(--ink); }
+.btn-secondary:hover { background: var(--moon); color: var(--ink); }
+
+/* Manga-panel grid */
+.panels { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
+.panel {
+  background: var(--night-2); border: var(--border); border-radius: 6px; padding: 1.5rem;
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.panel p:last-child { margin-bottom: 0; }
+.panel.span-3 { grid-column: span 3; }
+.panel.span-2 { grid-column: span 2; }
+.panel.span-4 { grid-column: span 4; }
+.panel.span-6 { grid-column: span 6; }
+.panel.accent { background: var(--sakura); color: var(--ink); }
+.panel.accent h3 { color: var(--ink); }
+.panel.accent code { background: var(--ink); color: var(--moon); }
+
+.page-head { padding-block: clamp(2rem, 5vw, 4rem) 1rem; border-bottom: var(--border); background: var(--night-2); }
+.page-head h1 { font-size: clamp(2rem, 5.5vw, 3.4rem); color: var(--sakura); text-shadow: 3px 3px 0 var(--ink); margin-bottom: .3em; }
+.page-head p { margin-bottom: 1.25rem; color: var(--moon-dim); }
+
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .mascot-stage { order: -1; padding-top: 5.5rem; }
+  .bubble { right: auto; left: 50%; transform: translateX(-50%); width: 90%; }
+  .panels { grid-template-columns: 1fr; }
+  .panel.span-2, .panel.span-3, .panel.span-4, .panel.span-6 { grid-column: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How naoko_http serves a request</title>
+  <meta name="description" content="The general shape of how a static file server answers a GET request, with an illustrative example.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head><body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <canvas id="petals" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <a class="brand" href="index.html">naoko_http</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html" aria-current="page">How it works</a>
+        <a href="author.html">Author</a>
+    </nav>
+  </header>
+
+  <main id="content">
+    <div class="page-head">
+      <div class="wrap">
+        <h1>How a request is served</h1>
+        <p>The general shape of a static file server, from request to response.</p>
+      </div>
+    </div>
+    <section class="section">
+      <div class="wrap">
+        <ol class="flow">
+          <li><p><strong>A client connects and sends a request.</strong> A browser asks for a file with a <code>GET</code> request.</p></li>
+          <li><p><strong>The server reads the request.</strong> naoko_http understands the miniature HTTP/1.1 it supports.</p></li>
+          <li><p><strong>The server finds the file.</strong> Because only static files are served, the requested path points at a file on disk.</p></li>
+          <li><p><strong>The server sends the file back.</strong> The client receives the contents and displays them.</p></li>
+        </ol>
+
+        <h2 style="margin-top:2.5rem">An example exchange</h2>
+        <div class="note">This is an illustrative example of HTTP/1.1 messages, not captured output from naoko_http.</div>
+        <pre class="code-block"><span class="c"># request from the client</span>
+<span class="k">GET</span> <span class="v">/index.html</span> HTTP/1.1
+Host: localhost
+
+<span class="c"># response from the server</span>
+HTTP/1.1 <span class="v">200 OK</span>
+Content-Type: text/html
+
+&lt;!DOCTYPE html&gt; ...</pre>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>naoko_http was written by Abhiyan Regmi.</p>
+    <ul>
+      <li><a href="https://github.com/Loopfelloff">GitHub profile</a></li>
+      <li><a href="https://github.com/Loopfelloff/naoko_http">naoko_http repository</a></li>
+    </ul>
+  </footer>
+  <script src="script/main.js"></script>
+</body>
+</html>

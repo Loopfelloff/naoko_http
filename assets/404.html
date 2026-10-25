@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 Page not found, naoko_http</title>
+  <meta name="description" content="The page you asked for does not exist on this server.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@400;700&display=swap">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/404.css">
+</head><body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <canvas id="petals" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <a class="brand" href="/index.html">naoko_http</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+        <a href="/index.html">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/features.html">Features</a>
+        <a href="/how-it-works.html">How it works</a>
+        <a href="/author.html">Author</a>
+    </nav>
+  </header>
+
+  <main id="content">
+    <section class="wrap lost">
+      <p class="code" aria-hidden="true">404</p>
+      <h1 style="font-size:clamp(1.6rem,4vw,2.4rem)">Page not found</h1>
+      <p>There is no file at <span class="requested" id="missing-path">this address</span>.</p>
+      <p class="bubble">I searched every static file I have, and this one is not there!</p>
+      <svg class="mascot" viewBox="0 0 240 270" role="img" aria-label="Naoko, the server mascot, a chibi girl with pink twin tails">
+  <path d="M52 108C8 120 4 212 40 246C46 204 58 162 72 132Z" fill="#ff8fb8"/>
+  <path d="M188 108C232 120 236 212 200 246C194 204 182 162 168 132Z" fill="#ff8fb8"/>
+  <path d="M60 232C60 206 90 196 120 196C150 196 180 206 180 232V270H60Z" fill="#221e5c" stroke="#0f0d2b" stroke-width="4"/>
+  <path d="M104 198L120 226L136 198Z" fill="#fff4e0"/>
+  <circle cx="120" cy="120" r="80" fill="#ffe3d3" stroke="#0f0d2b" stroke-width="4"/>
+  <path d="M36 122C34 44 206 44 204 122C194 96 170 84 150 82C140 100 100 100 90 82C70 84 46 96 36 122Z" fill="#ff8fb8" stroke="#0f0d2b" stroke-width="4"/>
+  <ellipse cx="88" cy="138" rx="15" ry="21" fill="#0f0d2b"/>
+  <ellipse cx="152" cy="138" rx="15" ry="21" fill="#0f0d2b"/>
+  <ellipse cx="88" cy="142" rx="10" ry="15" fill="#5ee6ff"/>
+  <ellipse cx="152" cy="142" rx="10" ry="15" fill="#5ee6ff"/>
+  <circle cx="83" cy="130" r="5" fill="#fff"/>
+  <circle cx="147" cy="130" r="5" fill="#fff"/>
+  <circle cx="92" cy="149" r="2.5" fill="#fff"/>
+  <circle cx="156" cy="149" r="2.5" fill="#fff"/>
+  <ellipse cx="64" cy="162" rx="11" ry="6" fill="#ff8fb8" opacity=".55"/>
+  <ellipse cx="176" cy="162" rx="11" ry="6" fill="#ff8fb8" opacity=".55"/>
+  <path d="M108 166Q120 178 132 166" fill="none" stroke="#0f0d2b" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="50" cy="96" r="12" fill="#5ee6ff" stroke="#0f0d2b" stroke-width="4"/>
+  <circle cx="190" cy="96" r="12" fill="#5ee6ff" stroke="#0f0d2b" stroke-width="4"/>
+</svg>
+      <div class="btn-row" style="margin-top:2rem">
+        <a class="btn btn-primary" href="/index.html">Back to home</a>
+        <a class="btn btn-secondary" href="https://github.com/Loopfelloff/naoko_http">View the source</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>naoko_http was written by Abhiyan Regmi.</p>
+    <ul>
+      <li><a href="https://github.com/Loopfelloff">GitHub profile</a></li>
+      <li><a href="https://github.com/Loopfelloff/naoko_http">naoko_http repository</a></li>
+    </ul>
+  </footer>
+  <script src="/script/main.js"></script>
+</body>
+</html>

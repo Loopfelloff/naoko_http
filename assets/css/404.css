@@ -1,0 +1,11 @@
+/* 404.css: lost-page screen */
+.lost { text-align: center; padding-block: clamp(3rem, 9vw, 6rem); }
+.lost .code {
+  font-family: var(--font-display); font-size: clamp(5rem, 22vw, 11rem); line-height: 1; margin: 0;
+  color: var(--sakura); text-shadow: 5px 5px 0 var(--ink), 9px 9px 0 var(--cyan);
+}
+.lost p { margin-inline: auto; }
+.lost .bubble { position: relative; display: inline-block; max-width: 28rem; margin: 2rem auto 2.25rem; top: auto; right: auto; text-align: left; }
+.lost .mascot { margin: 0 auto; width: 180px; transform: rotate(-6deg); }
+.requested { font-family: var(--font-code); background: var(--ink); color: var(--lantern); padding: .15rem .6rem; border-radius: 6px; overflow-wrap: anywhere; }
+.lost .btn-row { justify-content: center; }

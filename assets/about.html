@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About naoko_http</title>
+  <meta name="description" content="What naoko_http is, who wrote it, and what it was written with reference to.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head><body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <canvas id="petals" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <a class="brand" href="index.html">naoko_http</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="author.html">Author</a>
+    </nav>
+  </header>
+
+  <main id="content">
+    <div class="page-head">
+      <div class="wrap">
+        <h1>About naoko_http</h1>
+        <p>A small web server with a clear job.</p>
+      </div>
+    </div>
+    <section class="section">
+      <div class="wrap">
+        <div class="panels">
+          <article class="panel span-3">
+            <h2>What it is</h2>
+            <p>naoko_http is a webserver designed from scratch. It receives HTTP requests and answers them with static files.</p>
+            <p>It currently supports a miniature version of HTTP/1.1 only.</p>
+          </article>
+          <article class="panel span-3">
+            <h2>Who wrote it</h2>
+            <p>I am Abhiyan Regmi, and I made this server.</p>
+            <p><a href="author.html">More about the author</a></p>
+          </article>
+          <article class="panel accent span-6">
+            <h2>Written with Beej&rsquo;s Guide as the reference</h2>
+            <p>naoko_http is written with reference to Beej&rsquo;s Guide to Network Programming, the widely read guide to socket programming. The server is built on that foundation rather than on a ready-made HTTP library.</p>
+          </article>
+        </div>
+        <div class="note">The server is intentionally small. See <a href="features.html">Features</a> for exactly what is and is not supported.</div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>naoko_http was written by Abhiyan Regmi.</p>
+    <ul>
+      <li><a href="https://github.com/Loopfelloff">GitHub profile</a></li>
+      <li><a href="https://github.com/Loopfelloff/naoko_http">naoko_http repository</a></li>
+    </ul>
+  </footer>
+  <script src="script/main.js"></script>
+</body>
+</html>

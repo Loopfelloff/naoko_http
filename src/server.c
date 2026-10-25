@@ -14,7 +14,7 @@
 //custome header file includes are mentioned in here.
 #include "server.h"
 #include "http/sendall.h"
-#incldue "http/build_static_file_response.h"
+#include "http/build_static_file_response.h"
 #include "util/split_lines.h"
 #include "http/receiveall.h"
 #include "util/split_lines.h"
@@ -100,6 +100,7 @@ void start_server(char* ip_addr , int port , int backlog , size_t buf_len , char
 	    {
 		fprintf(stderr , "split : memory allocation error while splittling \n");
 		free(receive_buf);
+		close(new_fd);
 		exit(-1);
 	    }
 
@@ -111,6 +112,7 @@ void start_server(char* ip_addr , int port , int backlog , size_t buf_len , char
 	    {
 		fprintf(stderr , "Failed to parse \n");
 		free(req);
+		close(new_fd);
 		free(receive_buf);
 		exit(-1);
 }
@@ -118,28 +120,51 @@ void start_server(char* ip_addr , int port , int backlog , size_t buf_len , char
 	    if(verify_http_version(req->version , verifiable_list)){
 		fprintf(stderr,  "HTTP version not supported \n");
 		free(req);
+		close(new_fd);
 		free(receive_buf);
 		exit(-1);
 }
 
 	    char** file_read = malloc(sizeof(char*));
-	    
-	    if(serve_static_file(req->method,  req->path , file_read, req) = -1){
-		fprintf(stderr,  "Error while serving file on the server");
+	    int serve_static_file_status = serve_static_file(req->method,  req->path , file_read, req) ; 
+	    if(serve_static_file_status == -1){
+		fprintf(stderr,  "Error while serving file on the server\n");
 		free(req);
 		free(receive_buf);
-		free(file_read);
 		free(*file_read);
+		free(file_read);
+		close(new_fd);
 		exit(-1);
 		
-};
-	    
-	    char* to_send_buf = *file_read;
-	    int length_of_sending = strlen(to_send_buf);
-	    if (sendall(new_fd, to_send_buf, &length_of_sending) == -1)
+}
+	    else if(serve_static_file_status == -2){
+		// handle the resource not found shi on this one 
+		// Write now handling it via just exiting.
+		free(req);
+		free(receive_buf);
+		free(*file_read);
+		free(file_read);
+		close(new_fd);
+		exit(-1);
+}
+	    size_t *out_len = malloc(sizeof(size_t));
+
+	    build_response(200 , req->content_type , *file_read , strlen(*file_read), out_len);
+
+
+	    char *final_response_body = malloc(*out_len);
+
+	    final_response_body = build_response(200 , req->content_type , *file_read , strlen(*file_read), out_len);
+
+    
+	    if (sendall(new_fd, final_response_body,(int*)out_len) == -1)
 		perror("send");
 	    close(new_fd);
 	    free(receive_buf);
+	    free(final_response_body);
+	    free(out_len);
+	    free(*file_read);
+	    free(file_read);
 	    free(req);
 	    exit(0);
 	}

@@ -28,7 +28,8 @@ int serve_static_file(char* http_request_method , char* resource_name , char** f
     free(full_name);
 
     if(static_file == NULL){
-	return -1; // the reason why this is actually supposed to be  0 is because we want the next controller to handle the request properly if the said file doesn't exist. However for now i am just writing it so that it returns -1 and error is handeled separately.
+	printf("Error 404: Not Found \n");
+	return -2; // the reason why this is actually supposed to be  0 is because we want the next controller to handle the request properly if the said file doesn't exist. However for now i am just writing it so that it returns -1 and error is handeled separately.
     }
     
     size_t bytes_read;

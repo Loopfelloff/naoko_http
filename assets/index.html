@@ -1,12 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title></title>
-		<link href="css/style.css" rel="stylesheet">
-	</head>
-	<body>
-	    <h1>Hello , World</h1>	
-	</body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>naoko_http, a web server written from scratch</title>
+  <meta name="description" content="naoko_http is a web server written from scratch by Abhiyan Regmi. It speaks a miniature HTTP/1.1 and serves static files over GET.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+</head><body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <canvas id="petals" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <a class="brand" href="index.html">naoko_http</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="about.html">About</a>
+        <a href="features.html">Features</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="author.html">Author</a>
+    </nav>
+  </header>
+
+  <main id="content">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="title-card">
+          <h1>naoko_http</h1>
+          <p class="lede">A web server written from scratch by Abhiyan Regmi. It answers GET requests with static files, using a miniature version of HTTP/1.1.</p>
+          <ul class="badges" aria-label="Scope">
+            <li>Miniature HTTP/1.1</li>
+            <li>GET only</li>
+            <li>Static files only</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="features.html">See what it does</a>
+            <a class="btn btn-secondary" href="https://github.com/Loopfelloff/naoko_http">View on GitHub</a>
+          </div>
+        </div>
+        <div class="mascot-stage">
+          <p class="bubble">I serve static files. Send me a GET request and I will fetch it!</p>
+          <svg class="mascot" viewBox="0 0 240 270" role="img" aria-label="Naoko, the server mascot, a chibi girl with pink twin tails">
+  <path d="M52 108C8 120 4 212 40 246C46 204 58 162 72 132Z" fill="#ff8fb8"/>
+  <path d="M188 108C232 120 236 212 200 246C194 204 182 162 168 132Z" fill="#ff8fb8"/>
+  <path d="M60 232C60 206 90 196 120 196C150 196 180 206 180 232V270H60Z" fill="#221e5c" stroke="#0f0d2b" stroke-width="4"/>
+  <path d="M104 198L120 226L136 198Z" fill="#fff4e0"/>
+  <circle cx="120" cy="120" r="80" fill="#ffe3d3" stroke="#0f0d2b" stroke-width="4"/>
+  <path d="M36 122C34 44 206 44 204 122C194 96 170 84 150 82C140 100 100 100 90 82C70 84 46 96 36 122Z" fill="#ff8fb8" stroke="#0f0d2b" stroke-width="4"/>
+  <ellipse cx="88" cy="138" rx="15" ry="21" fill="#0f0d2b"/>
+  <ellipse cx="152" cy="138" rx="15" ry="21" fill="#0f0d2b"/>
+  <ellipse cx="88" cy="142" rx="10" ry="15" fill="#5ee6ff"/>
+  <ellipse cx="152" cy="142" rx="10" ry="15" fill="#5ee6ff"/>
+  <circle cx="83" cy="130" r="5" fill="#fff"/>
+  <circle cx="147" cy="130" r="5" fill="#fff"/>
+  <circle cx="92" cy="149" r="2.5" fill="#fff"/>
+  <circle cx="156" cy="149" r="2.5" fill="#fff"/>
+  <ellipse cx="64" cy="162" rx="11" ry="6" fill="#ff8fb8" opacity=".55"/>
+  <ellipse cx="176" cy="162" rx="11" ry="6" fill="#ff8fb8" opacity=".55"/>
+  <path d="M108 166Q120 178 132 166" fill="none" stroke="#0f0d2b" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="50" cy="96" r="12" fill="#5ee6ff" stroke="#0f0d2b" stroke-width="4"/>
+  <circle cx="190" cy="96" r="12" fill="#5ee6ff" stroke="#0f0d2b" stroke-width="4"/>
+</svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panels">
+          <article class="panel span-4">
+            <h2>Built from the ground up</h2>
+            <p>naoko_http is not a wrapper around an existing server. It is a web server designed from scratch, written with Beej&rsquo;s Guide to Network Programming as its reference.</p>
+            <p><a href="about.html">Read the full story</a></p>
+          </article>
+          <article class="panel accent span-2">
+            <h3>Scope</h3>
+            <p>GET requests and static files. Nothing else, on purpose.</p>
+          </article>
+          <article class="panel span-2">
+            <h3>Protocol</h3>
+            <p>A miniature version of HTTP/1.1.</p>
+          </article>
+          <article class="panel span-2">
+            <h3>Methods</h3>
+            <p>Only <code>GET</code> is handled.</p>
+          </article>
+          <article class="panel span-2">
+            <h3>Content</h3>
+            <p>Static files are served as they are.</p>
+          </article>
+          <article class="panel span-6">
+            <h2>Want to read the code?</h2>
+            <p>The source lives on GitHub under the username Loopfelloff.</p>
+            <div class="btn-row">
+              <a class="btn btn-primary" href="https://github.com/Loopfelloff/naoko_http">Open the repository</a>
+              <a class="btn btn-secondary" href="how-it-works.html">How a request is served</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>naoko_http was written by Abhiyan Regmi.</p>
+    <ul>
+      <li><a href="https://github.com/Loopfelloff">GitHub profile</a></li>
+      <li><a href="https://github.com/Loopfelloff/naoko_http">naoko_http repository</a></li>
+    </ul>
+  </footer>
+  <script src="script/main.js"></script>
+</body>
 </html>
