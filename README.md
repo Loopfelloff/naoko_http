@@ -194,5 +194,5 @@ GitHub: [@Loopfelloff](https://github.com/Loopfelloff)
 
 ## License
 
-A license has not been specified yet. Until one is added to the repository, permissions for reuse, modification, and redistribution are not explicitly granted.
+A license has not been specified yet. Idgaf anyways so go bananas with this
 
