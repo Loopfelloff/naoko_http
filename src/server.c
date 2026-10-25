@@ -14,11 +14,13 @@
 //custome header file includes are mentioned in here.
 #include "server.h"
 #include "http/sendall.h"
+#incldue "http/build_static_file_response.h"
 #include "util/split_lines.h"
 #include "http/receiveall.h"
 #include "util/split_lines.h"
 #include "util/request_first_line.h"
 #include "util/verify_http_version.h"
+#include "util/serve_static_file.h"
 
 void sigchld_handler(int s) // This is what the structure of the function should look like always btw.
 {
@@ -119,7 +121,20 @@ void start_server(char* ip_addr , int port , int backlog , size_t buf_len , char
 		free(receive_buf);
 		exit(-1);
 }
-	    char* to_send_buf = "Hello, world!\n";
+
+	    char** file_read = malloc(sizeof(char*));
+	    
+	    if(serve_static_file(req->method,  req->path , file_read, req) = -1){
+		fprintf(stderr,  "Error while serving file on the server");
+		free(req);
+		free(receive_buf);
+		free(file_read);
+		free(*file_read);
+		exit(-1);
+		
+};
+	    
+	    char* to_send_buf = *file_read;
 	    int length_of_sending = strlen(to_send_buf);
 	    if (sendall(new_fd, to_send_buf, &length_of_sending) == -1)
 		perror("send");
